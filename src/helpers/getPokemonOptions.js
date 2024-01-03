@@ -1,7 +1,7 @@
 import pokemonApi from '../api/pokemonApi'
 
 const getPokemons = () => {
-  const pokemonsArr = Array.from( Array(650) )//Creamos array con 650 posiciones
+  const pokemonsArr = Array.from( Array(649) )//Creamos array con 650 posiciones
   return pokemonsArr.map( (_ , index) => index + 1 ) //Asignamos los números del 1 al 650 en cada posición.
 }
 

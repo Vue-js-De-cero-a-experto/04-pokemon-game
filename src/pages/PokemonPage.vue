@@ -1,17 +1,22 @@
 <template>
 
   <h1 class="animate__animated animate__bounce">¿Quién es este Pokémon?</h1>
-  <h1 v-if="!pokemon"> Espere por favor...</h1>
+  <!-- <h1 v-if="!pokemon"> Espere por favor...</h1> -->
   
-  <div v-else>
+  <div v-if="pokemon">
   
     <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-    <PokemonOptions :pokemons="pokemons" @selectedOption="checkAnswer" :correctAnswer="correctAnswer" />
+    <PokemonOptions :pokemons="pokemons" @selectedOption="checkAnswer" :correctAnswer="correctAnswer" :userAnswer="userAnswer"/>
     <!-- <PokemonOptions :pokemons="pokemons" @selectedOption="checkAnswer($event)"/> Otra forma de hacerlo--> 
   </div>
 
   <div v-if="showPokemon">
-    <button class="btnNewGame animate__animated animate__fadeIn" @click="resetGame"> Siguiente </button>
+    
+    <h2 class="msg">{{ message }}</h2>
+
+    <button class="btnNewGame animate__animated animate__fadeIn" @click="resetGame"> 
+      Siguiente 
+    </button>
   </div>
 
   <div class="confetti">
@@ -48,7 +53,9 @@ export default {
       pokemon: null,
       showPokemon: false,
       correctAnswer: 0,
+      userAnswer: 0,
       confettiVisible: false,
+      message: '',
     }
   },
 
@@ -69,9 +76,14 @@ export default {
     checkAnswer( pokemonId ){
       if(this.pokemon.id === pokemonId){
         this.correctAnswer = pokemonId
-        this.showPokemon = true
         this.explode()
+        this.message = `Felicidades, Adivinaste!`
+      }else{
+        this.message = `Oops, era ${this.pokemon.name}`
       }
+
+      this.userAnswer = pokemonId
+      this.showPokemon = true
     },
 
     resetGame(){
@@ -79,7 +91,9 @@ export default {
       this.pokemon = null,
       this.showPokemon = false,
       this.correctAnswer = 0,
+      this.userAnswer = 0,
       this.confettiVisible = false,
+      this.message = ''
       this.mixPokemons()
     }
 
@@ -104,7 +118,6 @@ export default {
 .btnNewGame{
   width: 100px;
   height: 30px;
-  margin-top: 50px;
   background: orange;
   text-decoration: none;
   border: none;
@@ -117,6 +130,11 @@ export default {
 
 .btnNewGame:hover{
   scale: 1.2;
+}
+
+.msg{
+  margin-top: 70px;
+  letter-spacing: 2px;
 }
 
 </style>

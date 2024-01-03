@@ -41,11 +41,11 @@ img{
   -webkit-user-select: none;
   position: absolute;
   max-height: 200px;
-  filter: drop-shadow(0 0 0.75rem #000000);
+  filter: drop-shadow(0 0 0.25rem #000000);
 }
 
 .hidden-pokemon{
-  filter: brightness(0);
+  filter: brightness(0) drop-shadow(0 0 0.25rem #000000);
 }
 
 .pokemon-container{

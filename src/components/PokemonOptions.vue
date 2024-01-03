@@ -1,13 +1,21 @@
 <template>
     <div class="options-container">
+
         <button v-for="pokemon in pokemons" 
         :key="pokemon.id" 
         @click="$emit('selectedOption', pokemon.id)" 
-        :class="correctAnswer === pokemon.id && ' correctAnswer'"
+        :class="[correctAnswer === pokemon.id ? 'correctAnswer' : 
+                userAnswer === pokemon.id ? 'wrongAnswer' : 
+                correctAnswer !== 0 && 'animate__animated animate__fadeOut',
+                userAnswer  !==0 && 'disabledClick']" 
         >
+        <!-- 
+            :class="[correctAnswer === pokemon.id ? 'correctAnswer' : 
+                userAnswer === pokemon.id && 'wrongAnswer', 
+                correctAnswer !== 0 && 'animate__animated animate__fadeOut ']" -->
             {{ pokemon.name }}
-
         </button>
+
     </div>
 
 </template>
@@ -27,6 +35,11 @@ export default {
             default: 0,
             required: true
         },
+        userAnswer: {
+            type: Number,
+            default: 0,
+            required: true
+        }
     },
 
 }
@@ -70,6 +83,14 @@ export default {
 
     .correctAnswer{
         background: #50ff00;
+    }
+
+    .wrongAnswer{
+        background: #ff0000;
+    }
+
+    .disabledClick{
+        pointer-events: none;
     }
     
 </style>
