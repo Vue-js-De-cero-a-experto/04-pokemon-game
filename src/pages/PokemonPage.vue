@@ -1,6 +1,8 @@
 <template>
 
-  <h1 class="animate__animated animate__bounce">¿Quién es este Pokémon?</h1>
+    <h1 class="animate__animated animate__bounce">¿Quién es este Pokémon?</h1>
+    <h2> Puntaje: {{ score }}</h2>
+
   <!-- <h1 v-if="!pokemon"> Espere por favor...</h1> -->
   
   <div v-if="pokemon">
@@ -56,6 +58,7 @@ export default {
       userAnswer: 0,
       confettiVisible: false,
       message: '',
+      score: 0,
     }
   },
 
@@ -78,8 +81,10 @@ export default {
         this.correctAnswer = pokemonId
         this.explode()
         this.message = `Felicidades, Adivinaste!`
+        this.score++
       }else{
         this.message = `Oops, era ${this.pokemon.name}`
+        this.score--
       }
 
       this.userAnswer = pokemonId
@@ -136,5 +141,7 @@ export default {
   margin-top: 70px;
   letter-spacing: 2px;
 }
+
+
 
 </style>
